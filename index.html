@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaviin P — Software QA &amp; Blockchain Developer</title>
+<meta name="description" content="Kaviin P — Aspiring Computer Science Engineer specializing in Software Testing, Blockchain, IoT and Web Development. Published IEEE researcher.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#13223d;
+    --ink-soft:#3d4a63;
+    --slate:#68738a;
+    --paper:#f5f7fa;
+    --paper-raised:#ffffff;
+    --line:#dfe4ec;
+    --gold:#e2a13d;
+    --gold-deep:#b97e1f;
+    --crimson:#c1272d;
+    --radius:14px;
+    --maxw:1080px;
+    --shadow: 0 1px 2px rgba(19,34,61,0.04), 0 8px 24px rgba(19,34,61,0.06);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--ink);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,247,250,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--crimson); display:inline-block;}
+  nav.links{display:flex; gap:28px; align-items:center;}
+  nav.links a{
+    font-size:14px; font-weight:500; color:var(--ink-soft);
+    padding:6px 0; border-bottom:2px solid transparent;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  nav.links a:hover{color:var(--ink); border-color:var(--gold);}
+  .nav-loc{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--slate);
+    display:flex; align-items:center; gap:6px;
+  }
+  .menu-btn{display:none;}
+
+  .hero{
+    padding:88px 0 72px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:.08em;
+    color:var(--gold-deep); text-transform:uppercase; margin-bottom:18px;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--gold-deep); display:inline-block;}
+  .hero h1{
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.06;
+    font-weight:700;
+  }
+  .hero h1 .accent{color:var(--crimson);}
+  .hero p.lede{
+    margin-top:22px; font-size:17px; color:var(--ink-soft); max-width:52ch;
+  }
+  .hero-ctas{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14.5px;
+    padding:13px 24px; border-radius:999px; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(19,34,61,0.22);}
+  .btn-ghost{border:1.5px solid var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink); transform:translateY(-2px);}
+
+  .stats{
+    display:flex; gap:34px; margin-top:48px; flex-wrap:wrap;
+  }
+  .stat-num{font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; color:var(--ink);}
+  .stat-label{font-size:12.5px; color:var(--slate); margin-top:2px;}
+
+  .target-wrap{
+    position:relative; display:flex; align-items:center; justify-content:center;
+    height:340px;
+  }
+  .target-ring{
+    position:absolute; border-radius:50%; border:1.5px solid var(--line);
+  }
+  .target-ring.r1{width:320px; height:320px;}
+  .target-ring.r2{width:250px; height:250px; border-color:#e8d9c0;}
+  .target-ring.r3{width:186px; height:186px; border:2px solid var(--gold);}
+  .profile-photo{
+    position:relative; z-index:2;
+    width:168px; height:168px; border-radius:50%;
+    object-fit:cover; object-position:top center;
+    border:4px solid #fff;
+    box-shadow:0 10px 26px rgba(19,34,61,0.22);
+    animation: photo-in 700ms cubic-bezier(.2,1.1,.4,1) 100ms both;
+  }
+  @keyframes photo-in{
+    0%{ opacity:0; transform:scale(0.9);}
+    100%{ opacity:1; transform:scale(1);}
+  }
+  .arrow-mark{
+    position:absolute; width:13px; height:13px; background:var(--crimson);
+    border-radius:50% 50% 50% 0; transform:rotate(-45deg);
+    top:20%; left:68%; z-index:3;
+    box-shadow:0 0 0 4px rgba(193,39,45,0.14);
+    animation: land 900ms cubic-bezier(.2,1.1,.4,1) 500ms both;
+  }
+  @keyframes land{
+    0%{ transform:translate(120px,-140px) rotate(-45deg) scale(0.6); opacity:0;}
+    70%{ opacity:1;}
+    100%{ transform:translate(0,0) rotate(-45deg) scale(1); opacity:1;}
+  }
+  .target-caption{
+    position:absolute; bottom:-6px; font-family:'JetBrains Mono',monospace;
+    font-size:11.5px; color:var(--slate); text-align:center; width:100%;
+  }
+
+  section{padding:76px 0;}
+  .section-head{margin-bottom:44px; max-width:620px;}
+  .section-head .eyebrow{margin-bottom:12px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,34px);}
+  .section-head p{color:var(--ink-soft); margin-top:12px; font-size:15.5px;}
+
+  #about{background:var(--paper-raised); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .about-grid p{color:var(--ink-soft); font-size:16px;}
+  .about-grid p + p{margin-top:16px;}
+  .credential-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    padding:24px; margin-top:4px;
+  }
+  .credential-row{display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px dashed var(--line); font-size:14.5px;}
+  .credential-row:last-child{border-bottom:none;}
+  .credential-row .k{color:var(--slate);}
+  .credential-row .v{font-weight:600; font-family:'JetBrains Mono',monospace; font-size:13.5px;}
+
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+  }
+  .skill-card{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .skill-card:hover{transform:translateY(-3px); box-shadow:var(--shadow); border-color:#cfd6e2;}
+  .skill-card .icon-row{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
+  .skill-card img{height:22px; width:22px; border-radius:5px;}
+  .skill-card h4{font-size:15.5px; margin-bottom:8px;}
+  .skill-card p{font-size:13.5px; color:var(--slate); margin:0;}
+
+  .project{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius);
+    padding:32px; margin-bottom:22px;
+  }
+  .project-top{display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;}
+  .tag{
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    padding:5px 10px; border-radius:999px; background:#fbeedd; color:var(--gold-deep); font-weight:600;
+  }
+  .tag.ieee{background:#fdeceb; color:var(--crimson);}
+  .project h3{font-size:21px; margin-top:14px;}
+  .project .role{font-size:13.5px; color:var(--slate); margin-top:6px;}
+  .project .date{font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--slate); white-space:nowrap;}
+  .project ul{margin:18px 0 0; padding-left:20px; color:var(--ink-soft); font-size:14.5px;}
+  .project ul li + li{margin-top:6px;}
+  .contrib{
+    margin-top:20px; padding-top:18px; border-top:1px solid var(--line);
+  }
+  .contrib h5{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--slate); margin-bottom:10px;
+  }
+  .contrib ul{margin:0; padding-left:20px; font-size:14px; color:var(--ink-soft);}
+  .contrib ul li + li{margin-top:5px;}
+  .stack-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
+  .stack-chip{
+    font-family:'JetBrains Mono',monospace; font-size:12px; padding:5px 11px;
+    border:1px solid var(--line); border-radius:999px; color:var(--ink-soft); background:var(--paper);
+  }
+  .pub-line{
+    margin-top:18px; padding:14px 16px; background:var(--paper); border-radius:10px;
+    font-size:13.5px; color:var(--ink-soft); display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  }
+  .pub-line a{color:var(--crimson); font-weight:600; border-bottom:1px solid currentColor;}
+
+  #certs{background:var(--paper-raised); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .cert-list{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  .cert-item{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:18px;
+  }
+  .cert-mark{
+    flex:0 0 auto; width:26px; height:26px; border-radius:50%;
+    background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600;
+  }
+  .cert-item h4{font-size:14.5px;}
+  .cert-item p{margin:4px 0 0; font-size:13px; color:var(--slate);}
+
+  .beyond-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .beyond-card{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius);
+    padding:24px; text-align:left;
+  }
+  .beyond-card .level{
+    font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--gold-deep); font-weight:600;
+  }
+  .beyond-card h4{font-size:17px; margin-top:8px;}
+  .beyond-card p{font-size:13.5px; color:var(--slate); margin-top:6px;}
+
+  #contact{
+    background:var(--ink); color:#eef1f7; border-radius:24px; margin:0 28px 0; max-width:calc(var(--maxw) - 0px);
+  }
+  #contact .wrap{padding:64px 28px; max-width:var(--maxw);}
+  #contact h2{color:#fff; font-size:clamp(28px,4vw,40px);}
+  #contact p{color:#b6bfd1; margin-top:14px; max-width:46ch; font-size:15.5px;}
+  .contact-actions{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .contact-actions a{
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;
+    padding:12px 22px; border-radius:999px; border:1.5px solid rgba(255,255,255,0.22);
+    display:inline-flex; align-items:center; gap:8px; transition:all .18s ease;
+  }
+  .contact-actions a:hover{background:#fff; color:var(--ink); border-color:#fff;}
+  .contact-actions a.primary{background:var(--gold); border-color:var(--gold); color:var(--ink);}
+  .contact-actions a.primary:hover{background:#fff; border-color:#fff;}
+  footer{
+    text-align:center; padding:36px 0 48px; font-size:12.5px; color:var(--slate);
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  @media (max-width:860px){
+    nav.links{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .target-wrap{height:240px; order:-1;}
+    .about-grid{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:repeat(2,1fr);}
+    .cert-list{grid-template-columns:1fr;}
+    .beyond-grid{grid-template-columns:1fr;}
+    #contact{margin:0 14px;}
+  }
+  @media (max-width:520px){
+    .skills-grid{grid-template-columns:1fr;}
+    .stats{gap:22px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span>Kaviin P</div>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-loc">📍 Namakkal, Tamil Nadu</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Software QA &amp; Blockchain Developer</div>
+      <h1>Precision is the job.<br>Whether it's a <span class="accent">test case</span> or a <span class="accent">smart contract</span>.</h1>
+      <p class="lede">Aspiring Computer Science Engineer with hands-on experience across Software Testing, Java development, Blockchain applications, IoT systems, and Web Development. Published IEEE research author, currently completing my B.E. at Sathyabama Institute of Science and Technology.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#work">See my work →</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+      <div class="stats">
+        <div>
+          <div class="stat-num">IEEE</div>
+          <div class="stat-label">Published · Scopus-indexed</div>
+        </div>
+        <div>
+          <div class="stat-num">03</div>
+          <div class="stat-label">End-to-end projects shipped</div>
+        </div>
+        <div>
+          <div class="stat-num">National</div>
+          <div class="stat-label">Level archer, off the clock</div>
+        </div>
+      </div>
+    </div>
+    <div class="target-wrap">
+      <div class="target-ring r1"></div>
+      <div class="target-ring r2"></div>
+      <div class="target-ring r3"></div>
+      <img class="profile-photo" src="photo.jpg" alt="Kaviin P">
+      <div class="arrow-mark"></div>
+      <div class="target-caption mono">on target, every build</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow">Introduction</div>
+      <h2 style="font-size:clamp(24px,3vw,30px); margin-bottom:16px;">About me</h2>
+      <p>I'm a final-year Computer Science and Engineering student who got into software the way most testers do — by breaking things first, then figuring out how to build them properly. That habit of questioning "what happens if..." now shapes how I approach every project, from manual test plans to smart contract logic.</p>
+      <p>My final-year research applied that same rigor to blockchain: securing donor data for a decentralized blood bank platform using Ethereum smart contracts and ASCON lightweight cryptography, published at IEEE ICAISS 2026. Alongside that, I've built IoT alert systems and full-stack platforms, always working through SDLC and STLC discipline with Agile teams.</p>
+      <p>Outside the IDE, I compete in archery at the national level — which, it turns out, teaches the same lesson as QA: you don't get credit for effort, only for hitting the mark.</p>
+    </div>
+    <div class="credential-card">
+      <div class="credential-row"><span class="k">Degree</span><span class="v">B.E. CSE</span></div>
+      <div class="credential-row"><span class="k">Institution</span><span class="v">Sathyabama IST, Chennai</span></div>
+      <div class="credential-row"><span class="k">Duration</span><span class="v">2022 – 2026</span></div>
+      <div class="credential-row"><span class="k">CGPA</span><span class="v">7.87</span></div>
+      <div class="credential-row"><span class="k">Publication</span><span class="v">IEEE ICAISS 2026</span></div>
+      <div class="credential-row"><span class="k">Languages</span><span class="v">EN · TA · HI</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Toolkit</div>
+      <h2>Skills</h2>
+      <p>The stack I test with, build with, and ship with — spanning core languages, testing discipline, blockchain tooling, and the platforms that tie it together.</p>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="icon-row"><img src="https://cdn.simpleicons.org/openjdk/437291" alt=""></div>
+        <h4>Languages</h4>
+        <p>Java</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="icon-row">
+          <img src="https://cdn.simpleicons.org/html5/E34F26" alt="">
+          <img src="https://cdn.simpleicons.org/css3/1572B6" alt="">
+          <img src="https://cdn.simpleicons.org/mysql/4479A1" alt="">
+        </div>
+        <h4>Web &amp; Database</h4>
+        <p>HTML, CSS, MySQL</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="icon-row"><img src="https://cdn.simpleicons.org/testinglibrary/E33332" alt=""></div>
+        <h4>Testing</h4>
+        <p>Manual Testing, SDLC, STLC, Agile Methodologies</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="icon-row">
+          <img src="https://cdn.simpleicons.org/ethereum/3C3C3D" alt="">
+          <img src="https://cdn.simpleicons.org/ipfs/65C2CB" alt="">
+          <img src="https://cdn.simpleicons.org/metamask/F6851B" alt="">
+        </div>
+        <h4>Blockchain &amp; Crypto</h4>
+        <p>Ethereum Smart Contracts, IPFS/Filebase, ASCON Algorithm, MetaMask</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="icon-row">
+          <img src="https://cdn.simpleicons.org/flask/000000" alt="">
+          <img src="https://cdn.simpleicons.org/eclipseide/2C2255" alt="">
+          <img src="https://cdn.simpleicons.org/espressif/E7352C" alt="">
+        </div>
+        <h4>Tools &amp; Platforms</h4>
+        <p>Power BI, Excel, PowerPoint, Eclipse, Flask, Truffle Suite, Ganache, ESP8266</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="icon-row"><img src="https://cdn.simpleicons.org/jirasoftware/0052CC" alt=""></div>
+        <h4>Ways of Working</h4>
+        <p>Agile ceremonies, sprint planning, cross-functional demos</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Portfolio</div>
+      <h2>My work</h2>
+      <p>Three end-to-end builds — each one designed, tested, and presented by me from architecture through demo day.</p>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <span class="tag ieee">IEEE Published</span>
+          <h3>Blood Bank Transparency System Using Blockchain &amp; Decentralized Storage</h3>
+          <div class="role">Final-year project · donor/recipient data transparency platform</div>
+        </div>
+        <div class="date">2024 – 2026</div>
+      </div>
+      <ul>
+        <li>Designed end-to-end system architecture and data flow for a tamper-proof, blockchain-based blood bank platform.</li>
+        <li>Implemented ASCON lightweight cryptography (NIST-standardized) to secure sensitive records before on-chain storage.</li>
+        <li>Led full blockchain integration, including smart contract deployment and IPFS-backed decentralized storage.</li>
+      </ul>
+      <div class="stack-row">
+        <span class="stack-chip">Ethereum (Solidity)</span>
+        <span class="stack-chip">Truffle</span>
+        <span class="stack-chip">Ganache</span>
+        <span class="stack-chip">React.js</span>
+        <span class="stack-chip">IPFS / Filebase</span>
+        <span class="stack-chip">ASCON</span>
+        <span class="stack-chip">MetaMask</span>
+      </div>
+      <div class="contrib">
+        <h5>My contribution</h5>
+        <ul>
+          <li>Designed the complete system architecture and workflow</li>
+          <li>Performed end-to-end manual testing of the application</li>
+          <li>Designed project modules and user flow</li>
+          <li>Presented the project during reviews and technical demonstrations</li>
+        </ul>
+      </div>
+      <div class="pub-line">
+        📄 <strong>Enhanced Blood Bank Transparency With Smart Contracts And Decentralized Storage On Ethereum</strong> — IEEE ICAISS 2026, co-authored with Kavirajan K. IEEE Xplore, Scopus-indexed. <a href="https://ieeexplore.ieee.org/document/11526218" target="_blank" rel="noopener">Read the paper →</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <span class="tag">Completed</span>
+          <h3>Motion Detection Alert System — IoT</h3>
+          <div class="role">Real-time hardware-triggered alert system</div>
+        </div>
+        <div class="date">2023</div>
+      </div>
+      <ul>
+        <li>Built a real-time IoT alert system integrating an ESP8266 and PIR sensor with a Python Flask server for event-driven notifications.</li>
+      </ul>
+      <div class="stack-row">
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">Flask</span>
+        <span class="stack-chip">ESP8266</span>
+        <span class="stack-chip">PIR Sensor</span>
+      </div>
+      <div class="contrib">
+        <h5>My contribution</h5>
+        <ul>
+          <li>Designed the IoT system architecture</li>
+          <li>Tested complete hardware and software integration</li>
+          <li>Validated motion detection and alert functionality</li>
+          <li>Presented the project and demonstrated the system workflow</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <span class="tag">Completed</span>
+          <h3>Online Forum Discussions Platform</h3>
+          <div class="role">Multi-user, topic-based discussion platform</div>
+        </div>
+        <div class="date">2023</div>
+      </div>
+      <ul>
+        <li>Built a multi-user platform with topic threads, secure authentication, and server-side session management.</li>
+      </ul>
+      <div class="stack-row">
+        <span class="stack-chip">Java Servlets</span>
+        <span class="stack-chip">MySQL</span>
+        <span class="stack-chip">HTML/CSS</span>
+      </div>
+      <div class="contrib">
+        <h5>My contribution</h5>
+        <ul>
+          <li>Designed the application workflow and UI</li>
+          <li>Performed complete manual testing</li>
+          <li>Validated user authentication and discussion modules</li>
+          <li>Presented project features and functionality</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Credentials</div>
+      <h2>Certifications</h2>
+    </div>
+    <div class="cert-list">
+      <div class="cert-item">
+        <div class="cert-mark">01</div>
+        <div><h4>IoT — Smart Home Automation</h4><p>Techknots Academy LLP &amp; Sathyabama University</p></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-mark">02</div>
+        <div><h4>AI with Python</h4><p>Skill Forage</p></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-mark">03</div>
+        <div><h4>Full Stack Web Development</h4><p>ExcelR · Jul – Oct 2024</p></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-mark">04</div>
+        <div><h4>Java Programming</h4><p>NPTEL</p></div>
+      </div>
+      <div class="cert-item" style="grid-column:1 / -1;">
+        <div class="cert-mark">05</div>
+        <div><h4>MATLAB: Onramp, Fundamentals, OOP &amp; Programming Techniques</h4><p>MathWorks</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="beyond">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Off the clock</div>
+      <h2>Beyond code</h2>
+      <p>The same focus that goes into a test plan shows up on the range and the court.</p>
+    </div>
+    <div class="beyond-grid">
+      <div class="beyond-card">
+        <div class="level mono">National Level</div>
+        <h4>🏹 Archery</h4>
+        <p>Competitive precision under pressure — the closest real-world analogy to hitting edge cases.</p>
+      </div>
+      <div class="beyond-card">
+        <div class="level mono">Inter-College</div>
+        <h4>🏸 Badminton</h4>
+        <p>Fast reflexes, faster decisions — same instincts I bring to triaging bugs.</p>
+      </div>
+      <div class="beyond-card">
+        <div class="level mono">District Level</div>
+        <h4>🎱 Billiards</h4>
+        <p>Plan three moves ahead — good practice for tracing root causes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Let's build something reliable.</h2>
+    <p>Namakkal, Tamil Nadu · Open to Software Testing, QA, and Development roles</p>
+    <div class="contact-actions">
+      <a class="primary" href="mailto:kaviin.cool02@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/kaviin-p-43a8a9319" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Kaviin0211" target="_blank" rel="noopener">GitHub</a>
+      <a href="Kaviin_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Kaviin P. All rights reserved.</footer>
+
+</body>
+</html>
